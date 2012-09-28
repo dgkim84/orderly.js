@@ -3,7 +3,7 @@
   "properties": {
     "foo": {
       "type": "string",
-      "optional": true
+      "required": false
     }
   },
   "additionalProperties": false

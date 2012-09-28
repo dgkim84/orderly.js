@@ -33,6 +33,7 @@ frac                        (?:\.[0-9]+)
 "any"                                                        return 'ANY'
 "array"                                                      return 'ARRAY'
 "union"                                                      return 'UNION'
+"ref"                                                        return 'REF'
 "string"                                                     return 'STRING'
 "true"                                                       return 'TRUE'
 "false"                                                      return 'FALSE'
@@ -55,8 +56,14 @@ file
     ;
 
 orderly_schema
-    : unnamed_entry ';'
+    : named_entry ';'
+      { $$ = new yy.TopNode($1); }
+    | named_entry
+      { $$ = new yy.TopNode($1); }
+    | unnamed_entry ';'
+      { $$ = new yy.TopNode($1); }
     | unnamed_entry
+      { $$ = new yy.TopNode($1); }
     ;
 
 named_entries
@@ -108,6 +115,8 @@ definition_prefix
         {$$ = new yy.Type('array', $6, $3, $5);}
     | OBJECT '{' named_entries '}' optional_additional_marker
         {$$ = new yy.Type('object', null, $3, $5);}
+    | REF STRING_LIT
+        {$$ = new yy.Type('ref', null, $2);}
     | UNION '{' unnamed_entries '}'
         {$$ = new yy.Type($3);}
     ;

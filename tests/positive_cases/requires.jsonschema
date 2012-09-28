@@ -3,20 +3,20 @@
   "properties": {
     "foo": {
       "type": "integer",
-      "optional": true
+      "required": false
     },
     "bar": {
       "type": "integer",
-      "optional": true
+      "required": false
     },
     "baz": {
       "type": "integer",
-      "optional": true,
+      "required": false,
       "requires": "foo"
     },
     "bing": {
       "type": "integer",
-      "optional": true,
+      "required": false,
       "requires": [
         "foo",
         "bar",
